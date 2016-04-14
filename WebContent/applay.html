@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>维修申请</title>
+    <link href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://apps.bdimg.com/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/city.min.js"></script>
+    <script type="text/javascript" src="js/jquery.cityselect.js"></script>
+    <link rel="stylesheet" href="js/city.css" type="text/css">
+</head>
+<style>
+    #main {
+        padding: 20px ;
+        border-bottom: solid #FFB40C 1px;
+  /*      background: url("images/top.png") no-repeat;
+        background-size: cover;*/
+    }
+    button {
+        float: right;
+    }
+</style>
+<body>
+<div id="main" style="margin: 0px auto">
+    <form role="form" class="form-horizontal" name="form1" action="TestServlet" style=" margin: 0px auto">
+        <!-- 姓名-->
+        <div class="form-group">
+            <label for="userName" class="col-sm-2 control-label"> 姓名</label>
+
+            <div class="col-sm-4" style="float: left">
+                <input type="text" class="form-control" id="userName" placeholder="请输入姓名" name="userName"/>
+            </div>
+            <span id="userSpan" hidden="hidden" style="color: red">*不能为空</span>
+        </div>
+        <!-- 身份证号-->
+        <div class="form-group">
+            <label for="cardId" class="col-sm-2 control-label"> 身份证号</label>
+
+            <div class="col-sm-4" style="float: left">
+
+                <input type="text" class="form-control" id="cardId" name="cardId" placeholder="请输入身份证号"/>
+
+            </div>
+            <span id="cardSpan" hidden="hidden" style="color: red">*不能为空</span>
+        </div>
+        <!-- 电话号码-->
+        <div class="form-group ">
+            <label for="phoneNumber" class="col-sm-2 control-label"> 电话/手机</label>
+
+            <div class="col-sm-4" style="float: left">
+                <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="请输入手机号码"/>
+            </div>
+            <span id="phoneSpan" hidden="hidden" style="color: red">*不能为空</span>
+        </div>
+        <!-- 地址-->
+        <div class="form-group">
+            <label for="address" class="col-sm-2 control-label"> 地址</label>
+
+            <div class="col-sm-4" style="float: left">
+                <input type="text" class="form-control" id="address" name="address" placeholder="请输入地址"/>
+            </div>
+            <span id="addressSpan" hidden="hidden" style="color: red">*不能为空</span>
+        </div>
+        <div class="form-group">
+        <div class="col-sm-6">
+            <button id="sbumit" type="submit" class="btn btn-default ">提交</button>
+        </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    /*userName表单失去焦点时判断*/
+    $("#userName").blur(function () {
+        check("userName", "userSpan");
+    });
+
+    $("#cardId").blur(function () {
+        check("cardId", "cardSpan");
+        iscarddo();
+    });
+
+    $("#phoneNumber").blur(function () {
+        check("phoneNumber", "phoneSpan")
+    });
+    $("#address").blur(function () {
+        check("address", "addressSpan")
+    });
+    /*检查是否为空，并且提示为空*/
+    function check(id1, id) {
+        var strid = $("#" + id1);
+        var str = strid.val();
+        if (checknull(str)) {
+            $("#" + id).show();
+            $("#sbumit").attr("disabled", "disabled");
+        } else {
+            $("#" + id).hide();
+            $("#sbumit").removeAttr("disabled");
+        }
+    }
+    /*验证是否是身份证号，并作出动作*/
+    function iscarddo() {
+        var cardNumber = $("#cardId").val();
+        if (!isidcard(cardNumber)) {
+            $("#cardSpan").text("*请输入正确身份证号");
+            $("#cardSpan").show();
+            $("#sbumit").attr("disabled", "disabled");
+        } else {
+            $("#cardSpan").hide();
+            $("#sbumit").removeAttr("disabled");
+        }
+    }
+    function isidcard(str) {
+        var result = str.match(/\d{15}|\d{18}/);
+        if (result == null) return false;
+        return true;
+    }
+    /*判断是否为空，为空返回true*/
+    function checknull(a) {
+        if (a == "") {
+            return true;
+        } else {
+            return false
+        }
+    }
+</script>
+</body>
+</html>

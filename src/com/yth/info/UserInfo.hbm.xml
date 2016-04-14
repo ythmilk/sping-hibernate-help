@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2016-3-20 10:13:36 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+	<class name="com.yth.info.UserInfo" table="USERINFO">
+		<id name="cardId" type="java.lang.Long">
+			<column name="CARDID" />
+			<generator class="assigned" />
+		</id>
+		<property name="userName" type="java.lang.String">
+			<column name="USERNAME" />
+		</property>
+		
+		<property name="phoneNumber" type="java.lang.Long">
+			<column name="PHONENUMBER" />
+		</property>
+		<set name="orders" table="ORDERTEST" inverse="true" lazy="true">
+			<key>
+				<column name="USER_ID"/>
+			</key>
+			<one-to-many class="com.yth.info.OrderTest" />
+		</set>
+	</class>
+</hibernate-mapping>
